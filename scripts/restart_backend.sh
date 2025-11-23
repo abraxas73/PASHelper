@@ -10,6 +10,11 @@ lsof -ti:8000 | xargs kill -9 2>/dev/null || true
 echo "Starting Backend..."
 cd "$PROJECT_ROOT/backend"
 
+# Load .env from project root if it exists
+if [ -f "$PROJECT_ROOT/.env" ]; then
+  export $(grep -v '^#' "$PROJECT_ROOT/.env" | xargs)
+fi
+
 # Check if venv exists, if not create it
 if [ ! -d "venv" ]; then
     echo "Creating virtual environment..."

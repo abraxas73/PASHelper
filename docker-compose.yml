@@ -8,9 +8,7 @@ services:
     volumes:
       - ./backend:/app
     environment:
-      - DATABASE_URL=postgresql://user:password@db:5432/pashelper
-    depends_on:
-      - db
+      - DATABASE_URL=${DATABASE_URL}
 
   frontend:
     build: ./frontend
@@ -23,17 +21,3 @@ services:
       - NEXT_PUBLIC_API_URL=http://localhost:8000
     depends_on:
       - backend
-
-  db:
-    image: postgres:15-alpine
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=pashelper
-    ports:
-      - "5432:5432"
-
-volumes:
-  postgres_data:

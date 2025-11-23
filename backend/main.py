@@ -1,16 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .database import engine, Base
-from .routers import projects, search, auth
+from database import engine, Base
+from routers import projects, search, auth
 
 from contextlib import asynccontextmanager
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    Base.metadata.create_all(bind=engine)
-    yield
+# Base.metadata.create_all(bind=engine) # Managed by Alembic
 
-app = FastAPI(title="PASHelper API", lifespan=lifespan)
+app = FastAPI(title="PASHelper API")
 
 origins = [
     "http://localhost:3000",

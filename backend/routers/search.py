@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from typing import List
-from .. import schemas
+import schemas
 
 router = APIRouter(
     prefix="/search",
